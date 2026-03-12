@@ -8,6 +8,9 @@
 
 Custom [Claude Code](https://docs.anthropic.com/en/docs/claude-code) skills for autonomous ML research workflows. These skills orchestrate **cross-model collaboration** — Claude Code drives the research while an external LLM (via [Codex MCP](https://github.com/openai/codex)) acts as a critical reviewer.
 
+Prefer to run only inside Codex? Use [`codex-only-review-loop`](skills/codex-only-review-loop/SKILL.md) for a pure Codex dual-role loop (Reviewer + Author), without MCP round-trips.
+If you want zero Claude Code dependencies, use the standalone templates in [`codex_only/`](codex_only/README.md).
+
 ## 📈 Score Progression (Real Run)
 
 A real overnight 4-round run on an ML research project, from borderline reject to submission-ready:
@@ -104,6 +107,7 @@ These skills are designed to be composed into two main research workflows:
 |-------|-------------|-----------------|
 | 🔬 [`research-review`](skills/research-review/SKILL.md) | Single-round deep review from external LLM (xhigh reasoning) | Yes |
 | 🔁 [`auto-review-loop`](skills/auto-review-loop/SKILL.md) | Autonomous multi-round review→fix→re-review loop (max 4 rounds) | Yes |
+| 🧭 [`codex-only-review-loop`](skills/codex-only-review-loop/SKILL.md) | Pure Codex review→fix→re-review loop with explicit Reviewer/Author roles | No |
 | 📚 [`research-lit`](skills/research-lit/SKILL.md) | Search papers, analyze related work, find research gaps | No |
 | 📊 [`analyze-results`](skills/analyze-results/SKILL.md) | Analyze experiment results, compute statistics, generate insights | No |
 | 👀 [`monitor-experiment`](skills/monitor-experiment/SKILL.md) | Monitor running experiments, check progress, collect results | No |
@@ -141,9 +145,19 @@ cp -r skills/research-lit ~/.claude/skills/
 > /research-lit discrete diffusion language models
 > /research-review my paper on training dynamics in D-LLMs
 > /auto-review-loop ML paper on factorized gap diagnosis
+> /codex-only-review-loop ML paper on factorized gap diagnosis
 > /analyze-results figures/*.json
 > /monitor-experiment server5
 ```
+
+### Pure Codex (No Claude Code Skill)
+
+Use the standalone package:
+
+1. Open [`codex_only/README.md`](codex_only/README.md)
+2. Paste [`codex_only/review_loop/LOOP_PROMPT.md`](codex_only/review_loop/LOOP_PROMPT.md) into a Codex session
+3. Log each round with [`codex_only/review_loop/ROUND_TEMPLATE.md`](codex_only/review_loop/ROUND_TEMPLATE.md)
+4. For paper scouting, use [`codex_only/lit_scout/README.md`](codex_only/lit_scout/README.md)
 
 ### 🌙 Auto-Allow for Overnight Runs (Optional)
 

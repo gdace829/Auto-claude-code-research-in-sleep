@@ -8,6 +8,9 @@
 
 基于 [Claude Code](https://docs.anthropic.com/en/docs/claude-code) 的自定义 Skills，用于自主 ML 科研工作流。核心机制是**跨模型协作**——Claude Code 负责执行（读文件、写代码、跑实验、收结果），外部 LLM（通过 [Codex MCP](https://github.com/openai/codex)）负责评审（打分、找弱点、建议修复）。两个模型互不评自己的作业，形成真正的反馈循环。
 
+如果你想完全只用 Codex，也可以使用 [`codex-only-review-loop`](skills/codex-only-review-loop/SKILL.md)：在单模型内显式区分 `Reviewer` 和 `Author` 两个角色做循环。
+如果你希望完全不依赖 Claude Code skill，也可以直接使用 [`codex_only/`](codex_only/README.md) 里的独立模板。
+
 ## 📈 真实运行效果
 
 某 ML 研究项目上的 4 轮自动循环，从 borderline reject 到可投稿：
@@ -74,6 +77,7 @@
 |-------|------|-----------------|
 | 🔬 [`research-review`](skills/research-review/SKILL.md) | 单轮深度评审（外部 LLM，xhigh 推理） | 是 |
 | 🔁 [`auto-review-loop`](skills/auto-review-loop/SKILL.md) | 多轮自动 review→修复→再 review 循环（最多 4 轮） | 是 |
+| 🧭 [`codex-only-review-loop`](skills/codex-only-review-loop/SKILL.md) | 纯 Codex 的 review→修复→再 review 循环（Reviewer/Author 双角色） | 否 |
 | 📚 [`research-lit`](skills/research-lit/SKILL.md) | 搜论文、分析相关工作、找研究空白 | 否 |
 | 📊 [`analyze-results`](skills/analyze-results/SKILL.md) | 分析实验结果、统计、生成对比表 | 否 |
 | 👀 [`monitor-experiment`](skills/monitor-experiment/SKILL.md) | 监控实验进度、收集结果 | 否 |
@@ -122,6 +126,15 @@ cp -r skills/research-lit ~/.claude/skills/
   }
 }
 ```
+
+### 纯 Codex 用法（不使用 Claude Code Skill）
+
+直接使用独立模板：
+
+1. 打开 [`codex_only/README.md`](codex_only/README.md)
+2. 把 [`codex_only/review_loop/LOOP_PROMPT.md`](codex_only/review_loop/LOOP_PROMPT.md) 作为 Codex 首条指令粘贴
+3. 每轮按 [`codex_only/review_loop/ROUND_TEMPLATE.md`](codex_only/review_loop/ROUND_TEMPLATE.md) 记录到项目日志
+4. 论文收集报告请使用 [`codex_only/lit_scout/README.md`](codex_only/lit_scout/README.md)
 
 ## 🎛️ 自定义
 
