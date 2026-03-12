@@ -68,3 +68,51 @@
 - 先跑 ICLR 版（动机和实验叙事更容易起稿），再切 NeurIPS/ICML。
 - 如果你已有初稿，直接把“当前已有内容”贴进去，可跳过从零生成。
 - 先优化摘要+引言到 8 分以上，再扩展方法和实验，效率更高。
+
+## MM-ShiftKV 当前可直接用版本
+
+```text
+你现在执行一个两阶段论文写作流程，请严格按顺序完成。
+
+【输入参数】
+- 目标会议：ICLR
+- 课题：多模态长上下文推理中的 KV Cache 稳定压缩
+- 方法名：MM-ShiftKV
+- 数据集：MMBench-Long, VideoMME, 自建长上下文指令集
+- 指标：Accuracy, F1, Latency, Memory Footprint
+- 基线：Full KV, StreamingLLM, SnapKV, H2O
+- 当前已有内容：MM-ShiftKV 技术交底材料 + 方法草图
+- 目标分数：平均 >= 8.5/10
+- 最大轮次：3
+- 必保留约束：不虚构实验结果，不改变核心机制
+
+【阶段1：调用 conference_paper_prompts.md】
+1) 依据 ICLR 风格，生成完整论文草稿：
+   - 摘要、引言、相关工作、方法、实验、结论、审稿自查清单
+2) 输出为 Draft v1。
+3) 若缺少关键信息，使用 [NEED_DATA] 标记，不得编造。
+
+【阶段2：调用 iterative_review_template.md】
+对 Draft v1 执行循环优化：
+- 每轮都执行：评审打分 -> 风险排序 -> 定向改写 -> 复审
+- 输出字段固定为：
+  - Round {i}
+  - Scores
+  - Top Risks
+  - Fix Plan
+  - Revised Text
+  - Re-Score
+  - Decision
+- 达到目标分数或关键风险清零则停止，否则继续到最大轮次。
+
+【最终输出】
+1) Final Draft（最终版）
+2) Final Scores（各维度分数）
+3) Remaining Risks（剩余风险）
+4) Camera-ready TODO（投稿前待办，按优先级）
+
+【硬性规则】
+- 不得虚构实验数字、引用和结果
+- 所有主张必须对应证据
+- 优先修正低分高风险项，避免无关润色
+```
