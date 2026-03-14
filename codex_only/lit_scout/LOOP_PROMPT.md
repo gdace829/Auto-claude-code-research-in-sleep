@@ -103,24 +103,29 @@ Output requirements:
   - Top-3 papers by each single dimension (Relevance, Novelty, Evidence, Reproducibility, Impact)
 - End with a 2-week reading plan (priority order).
 - Save the final report to a NEW file each run:
-  - `LIT_REPORT_CODEX_ONLY_YYYYMMDD_HHMMSS.md`
+  - Ensure `lit/` exists first.
+  - `lit/LIT_REPORT_CODEX_ONLY_YYYYMMDD_HHMMSS.md`
   - Never overwrite previous reports.
 - Also generate a Chinese version with the same structure and save to:
-  - `LIT_REPORT_CODEX_ONLY_YYYYMMDD_HHMMSS_CN.md`
+  - `lit/LIT_REPORT_CODEX_ONLY_YYYYMMDD_HHMMSS_CN.md`
   - Keep paper titles and URLs unchanged; translate all analysis text to Chinese.
 
 Minimal runnable input block (recommended):
 
-Seed PDF(s): papers/cache2cachev1.pdf
+Seed PDF(s): papers/memagent.pdf
 Target conferences: NeurIPS, ICML, ICLR, ACL
 Time window: last 12 months
 Max papers to shortlist: 20
 Rating profile: seed_focus
 Please infer domain/topic/keywords from seed PDF first.
 Please output strictly with codex_only/lit_scout/REPORT_TEMPLATE.md
+Please create `lit/` first if it does not already exist.
 Please save the report to a new timestamped file:
-LIT_REPORT_CODEX_ONLY_YYYYMMDD_HHMMSS.md
+lit/LIT_REPORT_CODEX_ONLY_YYYYMMDD_HHMMSS.md
 Please also save a Chinese version to:
-LIT_REPORT_CODEX_ONLY_YYYYMMDD_HHMMSS_CN.md
+lit/LIT_REPORT_CODEX_ONLY_YYYYMMDD_HHMMSS_CN.md
 
-Now wait for my topic scope and run the scout.
+Execution rule:
+- If Seed PDF(s) are provided, treat the input as runnable and start the scout immediately.
+- Infer domain/topic/keywords from the seed first unless the user explicitly overrides them.
+- Only wait for more input if neither Seed PDF(s) nor usable topic scope is provided.
