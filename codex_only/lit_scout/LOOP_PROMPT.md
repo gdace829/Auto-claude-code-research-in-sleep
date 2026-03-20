@@ -112,7 +112,7 @@ Output requirements:
 
 Minimal runnable input block (recommended):
 
-Seed PDF(s): papers/memagent.pdf
+Seed PDF(s): papers/marti.pdf
 Target conferences: NeurIPS, ICML, ICLR, ACL
 Time window: last 12 months
 Max papers to shortlist: 20

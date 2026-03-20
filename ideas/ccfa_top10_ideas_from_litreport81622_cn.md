@@ -195,3 +195,19 @@
 - 它又不像 `Agentic Decomposition Meets Explicit Memory` 那样系统过重。
 - 可以先做最小版本：`MemAgent-style overwrite buffer + 4 类 typed slots + state selection head`。
 - 小实验就能看到清晰信号：只要在 `NoLiMa/long-doc multi-hop QA` 上比 `MemAgent` 和 `ProLong` 有稳定增益，这条线就值得继续。
+
+主跟 Spotlight on Token Perception... 这条问题线，别跟论文表面形式。
+
+你下一步最好的 framing 不是：
+
+我也做一个 multimodal reasoning method
+而是：
+
+multimodal reasoning is bottlenecked by evidence preservation before reasoning starts
+这句话最接你上一篇，也最容易长出下一篇。
+
+如果要更具体，我会建议你下一个题收成这种风格：
+
+Reasoning-Aware Visual Evidence Preservation for Multimodal Reasoning
+
+比 KV compression 大一点，比 完整 memory agent 小一点，刚好。
